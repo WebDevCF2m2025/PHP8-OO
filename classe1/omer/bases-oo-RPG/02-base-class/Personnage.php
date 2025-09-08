@@ -6,6 +6,10 @@
 
 class Personnage{
     // Propriétés (Attributs)
+    // ce sont des variables propres à la classe.
+    // Elles ont 3 visibilités : public, private ou protected
+    public $the_name;
+
     // Constantes
     // Méthodes
 }

@@ -10,11 +10,7 @@ class Personnage{
     // Propriétés (Attributs)
     // ce sont des variables propres à la classe.
     // Elles ont 3 visibilités : public, private ou protected
-<<<<<<< HEAD
-    public string $the_name; // publique, typage en string
-=======
     public ?string $the_name; // publique, typage en string
->>>>>>> main
     public ?string $the_surname="unknown"; // publique, string ou null (?string) avec valeur par défaut string
     public ?string $the_walking_dead=null; // publique, string ou null (?string) avec valeur par défaut null
 

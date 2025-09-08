@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
 <?php
 // déclaration stricte
 declare(strict_types=1);
 ?>
->>>>>>> main
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,8 +36,6 @@ $user2 = new Personnage();
 var_dump($user1,$user2);
 
 ?>
-<<<<<<< HEAD
-=======
 <h2>Modification des propriétés publiques</h2>
 <p>Attention, on peut modifier depuis l'extérieur de la classe les propriétés public (le typage sécurise, mais pas suffisamment)</p>
 <?php
@@ -59,7 +54,6 @@ var_dump($user1,$user2);
 echo "<p>Nom: $user1->the_name</p>";
 echo "<p>the_walking_dead: $user1->the_walking_dead</p>";
 ?>
->>>>>>> main
 
 </body>
 </html>

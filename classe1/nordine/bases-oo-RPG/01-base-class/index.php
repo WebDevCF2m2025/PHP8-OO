@@ -14,7 +14,7 @@
 <p>Le nom du fichier doit correspondre au nom de la classe (autoload)</p>
 <h3>Chargement de la classe</h3>
 <p>Cela se fait avant le doctype</p>
-<code>include "Personnage.php";
+<code>include "Personnage.php";</code>
 <?php
 include "Personnage.php";
 ?>
@@ -24,14 +24,22 @@ include "Personnage.php";
 <pre><code>$user1 = new Personnage();
 $user2 = new Personnage();
 
+<<<<<<< HEAD
+// ne fonctionne pas, c'est un lien symbolique vers l'objet et non une attribution de valeur (Alias)
+=======
 // ne fonctionne pas, c'est un lien symbolique vers l'objet et nom une attribution de valeur
+>>>>>>> 32f26118e2685074665b77b33b146a54c06476bb
 $user3 = $user1;
 
 var_dump($user1,$user2,$user3);</code></pre>
 <?php
 $user1 = new Personnage();
 $user2 = new Personnage();
+<<<<<<< HEAD
+// ne fonctionne pas, c'est un lien symbolique vers l'objet et non une attribution de valeur
+=======
 // ne fonctionne pas, c'est un lien symbolique vers l'objet et nom une attribution de valeur
+>>>>>>> 32f26118e2685074665b77b33b146a54c06476bb
 $user3 = $user1;
 var_dump($user1,$user2,$user3);
 

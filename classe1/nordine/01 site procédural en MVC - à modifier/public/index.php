@@ -39,6 +39,23 @@ if(isset($_SESSION['myID'])&&$_SESSION['myID']==session_id()){
     require_once "../controller/publicController.php";
 }
 
+// variables
+$lala = 1;
+$lala = 5;
+
+// liens symboliques vers l'instance (objet)
+$connectPDO2 = $connectPDO;
+
+// nouvelles connexions (2)
+$connectPDO3 = new PDO(
+    DB_TYPE.':host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME.';charset='.DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD
+);
+
+var_dump($connectPDO,$connectPDO2,$connectPDO3,$lala);
+
+
 
 # good practice
 $connectPDO = null;

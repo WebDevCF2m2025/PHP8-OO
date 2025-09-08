@@ -1,12 +1,11 @@
 <?php
 
+// La classe est une usine qui va permettre de créer des objets
+// de son type via une instanciation
+// La classe DOIT avoir le même nom que le fichier
 
-//la classe est une usine qui va permettre de créer des objets
-//de son type via une instanciation
-
-class Personnage
-{
+class Personnage{
     // Propriétés (Attributs)
-    // Constants
+    // Constantes
     // Méthodes
 }
