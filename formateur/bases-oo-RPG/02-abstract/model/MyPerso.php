@@ -8,6 +8,7 @@ class MyPerso extends MyPersoAbstract
     public function __construct(string $nom)
     {
         $this->initialisePerso();
+        // utilisation du constructeur parent
         parent::__construct($nom);
     }
 
@@ -21,6 +22,6 @@ class MyPerso extends MyPersoAbstract
     // méthode abstraite, doit être rééinitialisée
     public function attaquer(MyPersoAbstract $other)
     {
-        return "{$this->getName()} Attaque {$other->getName()}<br>";
+        return "{$this->getName()} Attaque 2 x {$other->getName()}<br>";
     }
 }

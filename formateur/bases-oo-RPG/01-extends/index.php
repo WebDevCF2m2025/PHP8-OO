@@ -35,6 +35,13 @@ try {
 }catch (Exception $e){
     echo $e->getMessage();
 }
+try {
+    $stmt = $connectPDO->prepare("SELECT * FROM category");
+    $stmt->execute();
+    var_dump($stmt->fetchAll());
+}catch (Exception $e){
+    echo $e->getMessage();
+}
 
 
 

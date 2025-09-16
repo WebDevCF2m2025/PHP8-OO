@@ -10,7 +10,7 @@ abstract class MyPersoAbstract{
     protected int $vie = 1000;
     protected int $agilite = 30;
     protected int $blesse = 40;
-    protected int $xp = 0;
+    protected int $xp = 0; // augmentation de 10 en cas de victoire
 
     // constantes
     public const int DES_DE_SIX = 6;

@@ -3,11 +3,7 @@
 abstract class HumainPerso extends MyPersoAbstract
 {
 
-    public function __construct(string $nom, string $espece, string $style){
-        // appel du constructeur parent
-        parent::__construct($nom, $espece, $style);
-        $this->initialisePerso();
-    }
+
 
 
     protected function initialisePerso()

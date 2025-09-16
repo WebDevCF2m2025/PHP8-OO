@@ -78,9 +78,15 @@ $perso1 = new HumainMagicienBlanc("mickey","Humain","Magicien");
 
 $perso2 = new ElfeMagicienBlanc("Magib","Elfe","Magicien");
 
+if(isset($_POST['nom'],$_POST['espece_perso'],$_POST['style_perso']))  {
+    $persoPost = new ElfeMagicienBlanc($_POST['nom'],$_POST['espece_perso'],$_POST['style_perso']);
+    var_dump($persoPost);
+}
+
+
 echo "{$perso1->attaquer($perso2)}";
 
-var_dump($perso1,$perso2);
+var_dump($perso1,$perso2,$_POST);
 ?>
 <hr>
 <h3>Les descendants</h3>

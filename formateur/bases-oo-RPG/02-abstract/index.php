@@ -5,6 +5,8 @@ declare(strict_types=1);
 require_once "model/MyPersoAbstract.php";
 require_once "model/MyPerso.php";
 require_once "model/MyPersoMagicien.php";
+require_once "model/Perso.php";
+require_once "model/EnfantPerso.php";
 
 ?><!doctype html>
 <html lang="en">
@@ -21,9 +23,10 @@ require_once "model/MyPersoMagicien.php";
 <?php
 $perso1 = new MyPerso("Pierre");
 $perso2 = new MyPersoMagicien("Mike");
+$perso3 = new EnfantPerso("123");
 
-
-echo MyPerso::DES_DE_DOUZE;
+echo MyPersoAbstract::DES_DE_DOUZE;
+//$a = new MyPersoAbstract();
 ?><hr>
 <h3>Les descendants</h3>
 <p>Peuvent intéragir ensemble</p>
@@ -31,7 +34,7 @@ echo MyPerso::DES_DE_DOUZE;
 echo $perso1->attaquer($perso2);
 echo $perso2->attaquer($perso1);
 
-var_dump($perso1,$perso2);
+var_dump($perso1,$perso2,$perso3);
 ?>
 </body>
 </html>
