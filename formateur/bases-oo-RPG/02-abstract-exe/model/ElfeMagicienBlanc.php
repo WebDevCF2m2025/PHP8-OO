@@ -20,12 +20,39 @@ class ElfeMagicienBlanc extends ElfePerso
 
     }
 
+    public function defendre()
+    {
+        // création de la défense
+        $baseMagie = $this->getMagie()+$this->getAgilite();
+        $des1 = mt_rand(1,self::DES_DE_DOUZE);
+        $des2 = mt_rand(1,self::DES_DE_DOUZE);
+        $totalMagie = $baseMagie + $des1 + $des2;
+        return $totalMagie;
+    }
+
     public function attaquer(MyPersoAbstract $other)
     {
+        // création de l'attaque
+        $baseMagie = $this->getMagie()+$this->getAgilite();
+        $des1 = mt_rand(1,self::DES_DE_DOUZE);
+        $des2 = mt_rand(1,self::DES_DE_DOUZE);
+        $des3 = mt_rand(1,self::DES_DE_DOUZE);
+        $totalAttaque = $baseMagie + $des1 + $des2 + $des3;
+        $defense = $other->defendre();
+        if($totalAttaque>$defense){
+
+        }
+
+
         $string="<b>{$this->getName()} Attaque {$other->getName()}</b><br>";
         return $string;
 
     }
+    public function gagner(MyPersoAbstract $other)
+    {
+        // TODO: Implement gagner() method.
+    }
+
     protected function blesser()
     {
         // TODO: Implement blesser() method.

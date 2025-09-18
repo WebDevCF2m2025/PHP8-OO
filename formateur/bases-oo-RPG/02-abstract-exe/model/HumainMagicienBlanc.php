@@ -17,11 +17,24 @@ class HumainMagicienBlanc extends HumainPerso
         echo $string;
 
     }
+    public function defendre()
+    {
+        // création de la défense
+        $baseMagie = $this->getMagie()+$this->getAgilite();
+        $des1 = mt_rand(1,self::DES_DE_DOUZE);
+        $des2 = mt_rand(1,self::DES_DE_DOUZE);
+        $totalMagie = $baseMagie + $des1 + $des2;
+        return $totalMagie;
+    }
     public function attaquer(MyPersoAbstract $other)
     {
         $string="<b>{$this->getName()} Attaque {$other->getName()}</b><br>";
         return $string;
 
+    }
+    public function gagner(MyPersoAbstract $other)
+    {
+        // TODO: Implement gagner() method.
     }
     protected function blesser()
     {

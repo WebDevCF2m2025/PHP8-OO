@@ -49,6 +49,7 @@ Il s'agit donc de représenter ces objets et leurs relations. L'interaction entr
     - [4. Auto-chargement des classes](#4-auto-chargement-des-classes)
     - [5. Les exceptions](#5-les-exceptions)
     - [6. Le mapping de tables SQL en classes PHP](#6-le-mapping-de-tables-sql-en-classes-php)
+      - [6.1 Utilisation d'une classe abstraite](#61-utilisation-dune-classe-abstraite)
     - [7. Les Managers](#7-les-managers)
 
 ---
@@ -1010,6 +1011,18 @@ $className2 = new MaClasse2();
 
 ```
 
+Voici une méthode plus complète gérant le `namespace` et l'auto-chargement des classes :
+
+```php
+// RACINE_PATH se trouve à la racine du projet,
+// par exemple dans config.php
+// avec const RACINE_PATH = __DIR__
+spl_autoload_register(function ($class) {
+    $class = str_replace('\\', '/', $class);
+    require RACINE_PATH.'/' .$class . '.php';
+});
+```
+
 La fonction d'auto-chargement peut être définie dans un fichier séparé. Dans ce cas, le fichier doit être inclus avant d'instancier une classe.
 
 ```php
@@ -1102,17 +1115,17 @@ try {
 
 Le mapping de tables SQL en classes PHP est utilisé pour mapper les tables SQL en classes PHP. Cela permet de manipuler les données de la base de données en utilisant des objets.
 
-Prenons un exemple simple avec une table `users` :
+Prenons un exemple simple avec une table `user` :
 
 ```sql
-CREATE TABLE users (
+CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL
 );
 ```
 
-Nous allons créer une classe `User` qui va représenter la table `users` :
+Nous allons créer une classe `User` qui va représenter la table `user` :
 
 ```php
 class User {
@@ -1160,6 +1173,87 @@ class User {
 }
 ```
 
+---
+
+[Menu de navigation](#menu-de-navigation)
+
+---
+
+
+#### 6.1 Utilisation d'une classe abstraite
+
+On peut utiliser une classe abstraite comme parent nous permettant l'`hydratation` de nos classes
+
+```php
+<?php
+
+
+class AbstractModel
+{
+    // constructeur - Appelé lors de l'instanciation
+    public function __construct(array $tab)
+    {
+        // tentative d'hydration des données de Personnage
+        $this->hydrate($tab);
+    }
+
+    // création de notre hydratation, en partant d'un tableau associatif et de ses clefs,
+    // on va régénérer le nom des setters existants
+    protected function hydrate(array $assoc)
+    {
+        // tant qu'on a des éléments dans le tableau
+        foreach ($assoc as $clef => $valeur) {
+            // création du nom de la méthode
+            $methodeName = "set" . str_replace("_", "", ucfirst($clef));
+            // si la méthode existe
+            if (method_exists($this, $methodeName)) {
+                $this->$methodeName($valeur);
+            }
+        }
+    }
+}
+```
+
+Ce qui donnera pour le cas `User`
+
+```php
+class User extends AbstractModel {
+
+    // Propriétés
+    private int $id;
+    private string $name;
+    private string $email;
+    
+    // getters
+    public function getId() {
+        return $this->id;
+    }
+    
+    public function getName() {
+        return $this->name;
+    }
+    
+    public function getEmail() {
+        return $this->email;
+    }
+    
+    // setters
+    public function setId(int $id) {
+        $this->id = $id;
+    }
+    
+    public function setName(string $name) {
+        $this->name = trim(strip_tags($name));
+    }
+    
+    public function setEmail(string $email) {
+        $this->email = filter_var($email, 
+        FILTER_VALIDATE_EMAIL));
+    }
+    
+    
+}
+```
 
 ---
 

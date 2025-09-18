@@ -36,8 +36,10 @@ abstract class MyPersoAbstract{
 
     // méthodes abstraites
     abstract public function attaquer(MyPersoAbstract $other);
+    abstract public function defendre();
     abstract protected function initialisePerso();
     abstract protected function blesser();
+    abstract protected function gagner(MyPersoAbstract $other);
 
 
     // getters and setters

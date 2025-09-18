@@ -1,6 +1,6 @@
 <?php
 
-// Déxlaration du mode strict
+// Déclaration du mode strict
 declare(strict_types=1);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -53,7 +53,7 @@ if (isset($_POST['name'], $_POST['espece'])) {
 
 <pre>
     <?php
-    var_dump($_POST,$perso1,$perso2);
+        var_dump($_POST,$perso1,$perso2);
     ?>
 </pre>
 </body>
