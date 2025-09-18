@@ -11,9 +11,10 @@ echo "<p>Les constantes magiques : <a href='https://www.php.net/manual/en/langua
 echo "<p>RACINE_PATH chemin fixe vers la racine de notre site : ".RACINE_PATH."</p>";
 echo "<hr><p>Utilisation provisoire d'une méthode statique (echo AbstractMapping::slugify(".'$titre'.");)</p>";
 $titre = "Un titre l'école et l'hôpital";
-echo AbstractMapping::slugify($titre);
 
 
-$article1 = new ArticleMapping();
 
-var_dump($article1);
+$article1 = new ArticleMapping(1, "bonjou");
+
+$article1->setArticleTitle( "bonjour");
+echo "<hr><p>Titre: ".$article1->getArticleTitle()."</p>";
