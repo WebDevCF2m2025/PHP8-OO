@@ -18,4 +18,4 @@ $article1 = new ArticleMapping(1, "bonjour");
 
 
 echo "<hr><p>Titre: ".$article1->getArticleTitle()."</p>";
-echo "<hr><p>Titre: ".$article1->getId()."</p>";
+echo "<hr><p>ID: ".$article1->getId()."</p>";
