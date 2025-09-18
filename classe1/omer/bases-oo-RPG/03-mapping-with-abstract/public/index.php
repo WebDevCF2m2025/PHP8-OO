@@ -14,7 +14,8 @@ $titre = "Un titre l'école et l'hôpital";
 
 
 
-$article1 = new ArticleMapping(1, "bonjou");
+$article1 = new ArticleMapping(1, "bonjour");
 
-$article1->setArticleTitle( "bonjour");
+
 echo "<hr><p>Titre: ".$article1->getArticleTitle()."</p>";
+echo "<hr><p>Titre: ".$article1->getId()."</p>";
