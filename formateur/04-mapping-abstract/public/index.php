@@ -45,9 +45,8 @@ if(!empty($_POST)){
         // mise à jour de l'objet avant son insertion dans la DB
         $articleInsert->setArticleSlug($slug);
         // exercice 1 Insérez l'article dans la table article
-
         // ICI
-
+        
 
     }catch(Exception $e){
         echo $e->getMessage();
@@ -111,7 +110,7 @@ var_dump($article1);
 <?php
 
 if(isset($articleInsert)) var_dump($articleInsert);
-var_dump($_POST);
+var_dump($_POST) . "<br>";
 ?>
 </body>
 </html>
