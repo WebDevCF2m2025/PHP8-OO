@@ -1204,7 +1204,7 @@ class AbstractModel
         // tant qu'on a des éléments dans le tableau
         foreach ($assoc as $clef => $valeur) {
             // création du nom de la méthode
-            $methodeName = "set" . str_replace("_", "", ucfirst($clef));
+            $methodeName = "set" . str_replace("_", "", ucwords($clef, '_'));
             // si la méthode existe
             if (method_exists($this, $methodeName)) {
                 $this->$methodeName($valeur);
