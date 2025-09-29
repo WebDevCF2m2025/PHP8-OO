@@ -38,10 +38,12 @@ $valueVisibility = isset($article) && $article ? (int)$article->getArticleVisibi
 
 // Déterminer l'action (create ou edit)
 $isEdit = isset($article) && $article;
+$redirectKey = isset($_GET['redirect']) ? $_GET['redirect'] : 'admin';
 $action = $isEdit ? './?p=edit&id='.$article->getId() : './?p=create';
 ?>
 
 <form method="post" action="<?= $action ?>">
+    <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirectKey) ?>">
     <label for="article_title">Titre</label>
     <input type="text" id="article_title" name="article_title" value="<?= $valueTitle ?>" required>
 
@@ -57,7 +59,11 @@ $action = $isEdit ? './?p=edit&id='.$article->getId() : './?p=create';
 
     <div class="actions">
         <button class="btn btn-primary" type="submit"><?= $isEdit ? 'Mettre à jour' : 'Créer' ?></button>
-        <a class="btn" href="./?p=admin">Annuler</a>
+        <?php if($redirectKey==='home'): ?>
+            <a class="btn" href="./">Annuler</a>
+        <?php else: ?>
+            <a class="btn" href="./?p=admin">Annuler</a>
+        <?php endif; ?>
     </div>
 </form>
 

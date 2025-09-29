@@ -13,7 +13,7 @@
 <body>
     <h1>Page d'accueil</h1>
     <nav>
-        <a href ="./">Accueil</a> | <a href ="./?p=admin">Administration</a>
+        <a href ="./">Accueil</a> | <a href ="./?p=admin">Administration</a> | <a href ="./?p=create&redirect=home">Créer un article</a>
     </nav>
     <h2>Articles de notre site</h2>
     <?php

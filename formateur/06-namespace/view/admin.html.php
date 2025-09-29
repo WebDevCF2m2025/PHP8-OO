@@ -30,7 +30,7 @@
         <a href ="./">Accueil</a> | <a href ="./?p=admin">Administration</a>
     </nav>
     <div class="topbar">
-        <a class="btn btn-edit" href="?p=create">+ Nouvel article</a>
+        <a class="btn btn-edit" href="?p=create&redirect=admin">+ Nouvel article</a>
     </div>
     <h2>Articles de notre site</h2>
     <?php
@@ -66,8 +66,8 @@
                 <td><?php echo $item->getArticleVisibility(); ?></td>
                 <td>
                     <div class="actions">
-                        <a class="btn btn-edit" href="?p=edit&amp;id=<?php echo $item->getId(); ?>">Modifier</a>
-                        <a class="btn btn-delete" href="?p=delete&amp;id=<?php echo $item->getId(); ?>" onclick="return confirm('Supprimer définitivement cet article ?');">Supprimer</a>
+                        <a class="btn btn-edit" href="?p=edit&amp;id=<?php echo $item->getId(); ?>&amp;redirect=admin">Modifier</a>
+                        <a class="btn btn-delete" href="?p=delete&amp;id=<?php echo $item->getId(); ?>&amp;redirect=admin" onclick="return confirm('Supprimer définitivement cet article ?');">Supprimer</a>
                     </div>
                 </td>
             </tr>

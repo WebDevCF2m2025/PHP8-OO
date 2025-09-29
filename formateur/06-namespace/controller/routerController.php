@@ -37,6 +37,7 @@ if(isset($_GET['p'])){
 
         case 'create':
             if($_SERVER['REQUEST_METHOD']==='POST'){
+                $redirectKey = isset($_POST['redirect']) ? $_POST['redirect'] : 'admin';
                 $payload = [
                     'article_title' => $_POST['article_title'] ?? null,
                     'article_text' => $_POST['article_text'] ?? null,
@@ -45,7 +46,8 @@ if(isset($_GET['p'])){
                 ];
                 $article = new ArticleMapping($payload);
                 $ArticleManager->create($article);
-                header('Location: ./?p=admin');
+                $dest = ($redirectKey === 'home') ? './' : './?p=admin';
+                header('Location: '.$dest);
                 exit;
             }
             // afficher le formulaire de création
@@ -55,11 +57,14 @@ if(isset($_GET['p'])){
 
         case 'edit':
             $id = isset($_GET['id'])? (int) $_GET['id'] : 0;
+            $redirectKeyGet = isset($_GET['redirect']) ? $_GET['redirect'] : 'admin';
             if($id<=0){
-                header('Location: ./?p=admin');
+                $dest = ($redirectKeyGet === 'home') ? './' : './?p=admin';
+                header('Location: '.$dest);
                 exit;
             }
             if($_SERVER['REQUEST_METHOD']==='POST'){
+                $redirectKey = isset($_POST['redirect']) ? $_POST['redirect'] : 'admin';
                 $payload = [
                     'article_title' => $_POST['article_title'] ?? null,
                     'article_text' => $_POST['article_text'] ?? null,
@@ -68,12 +73,14 @@ if(isset($_GET['p'])){
                 ];
                 $articleData = new ArticleMapping($payload);
                 $ArticleManager->update($id, $articleData);
-                header('Location: ./?p=admin');
+                $dest = ($redirectKey === 'home') ? './' : './?p=admin';
+                header('Location: '.$dest);
                 exit;
             }
             $article = $ArticleManager->readById($id);
             if($article===false){
-                header('Location: ./?p=admin');
+                $dest = ($redirectKeyGet === 'home') ? './' : './?p=admin';
+                header('Location: '.$dest);
                 exit;
             }
             include RACINE_PATH . "/view/article_form.html.php";
@@ -81,10 +88,12 @@ if(isset($_GET['p'])){
 
         case 'delete':
             $id = isset($_GET['id'])? (int) $_GET['id'] : 0;
+            $redirectKey = isset($_GET['redirect']) ? $_GET['redirect'] : 'admin';
             if($id>0){
                 $ArticleManager->delete($id);
             }
-            header('Location: ./?p=admin');
+            $dest = ($redirectKey === 'home') ? './' : './?p=admin';
+            header('Location: '.$dest);
             exit;
     }
 
