@@ -18,12 +18,33 @@ class ArticleManager implements ManagerInterface, CrudInterface
      */
     public function create(AbstractMapping $data)
     {
-        // TODO: Implement create() method.
+        // Génération du slug
+        if (method_exists($data, 'getArticleTitle') && method_exists($data, 'setArticleSlug')) {
+            // Utilisation du trait SlugifyTrait
+            $slug = (new class { use SlugifyTrait; })->slugify($data->getArticleTitle());
+            $data->setArticleSlug($slug);
+        }
+        $sql = "INSERT INTO article (article_title, article_slug, article_text, article_date, article_visibility) VALUES (:title, :slug, :text, :date, :visibility)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':title', $data->getArticleTitle());
+        $stmt->bindValue(':slug', $data->getArticleSlug());
+        $stmt->bindValue(':text', $data->getArticleText());
+        $stmt->bindValue(':date', $data->getArticleDate());
+        $stmt->bindValue(':visibility', $data->getArticleVisibility());
+        return $stmt->execute();
     }
 
     public function readById(int $id): bool|AbstractMapping
     {
-        // TODO: Implement readById() method.
+        $sql = "SELECT * FROM article WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new ArticleMapping($data);
+        }
+        return false;
     }
 
     // récupération de tous nos articles
@@ -34,6 +55,7 @@ class ArticleManager implements ManagerInterface, CrudInterface
             $sql .= "ORDER BY `article_date` DESC";
         $query = $this->db->query($sql);
         $stmt = $query->fetchAll(PDO::FETCH_ASSOC);
+        $result = [];
         foreach ($stmt as $item){
             // réutilisation des setters
             $result[] = new ArticleMapping($item);
@@ -44,12 +66,28 @@ class ArticleManager implements ManagerInterface, CrudInterface
 
     public function update(int $id, AbstractMapping $data)
     {
-        // TODO: Implement update() method.
+    // Regénérer le slug si un titre est fourni
+    if (method_exists($data, 'getArticleTitle') && method_exists($data, 'setArticleSlug') && $data->getArticleTitle()) {
+        $slug = (new class { use SlugifyTrait; })->slugify($data->getArticleTitle());
+        $data->setArticleSlug($slug);
+    }
+    $sql = "UPDATE article SET article_title = :title, article_slug = :slug, article_text = :text, article_date = :date, article_visibility = :visibility WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':title', $data->getArticleTitle());
+    $stmt->bindValue(':slug', $data->getArticleSlug());
+    $stmt->bindValue(':text', $data->getArticleText());
+    $stmt->bindValue(':date', $data->getArticleDate());
+    $stmt->bindValue(':visibility', $data->getArticleVisibility());
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
     }
 
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
+    $sql = "DELETE FROM article WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
     }
 
     /*
@@ -64,6 +102,7 @@ class ArticleManager implements ManagerInterface, CrudInterface
             $sql .= "ORDER BY `article_date` DESC";
         $query = $this->db->query($sql);
         $stmt = $query->fetchAll(PDO::FETCH_ASSOC);
+        $result = [];
         foreach ($stmt as $item){
             // réutilisation des setters
             $result[] = new ArticleMapping($item);
