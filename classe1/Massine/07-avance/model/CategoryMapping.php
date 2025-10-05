@@ -1,5 +1,4 @@
 <?php
-<?php
 // création du namespace
 namespace model;
 
@@ -8,8 +7,9 @@ use Exception;
 class CategoryMapping extends AbstractMapping{
 
     protected ?int $id=null; 
-    protected ?string $article_name=null; 
-    protected ?string $article_slug=null; 
+    protected ?string $category_name=null; 
+    protected ?string $category_slug=null; 
+    protected ?string $category_desc=null; 
 
     public function getId(): ?int
     {
@@ -30,13 +30,13 @@ class CategoryMapping extends AbstractMapping{
     }
 
 
-    public function setCategoryNam(?string $name): void
+    public function setCategoryName(?string $name): void
     {
         if(is_null($name)) return;
         $nameClean = trim(htmlspecialchars(strip_tags($name)));
         if(empty($nameClean))
             throw new Exception("Le titre ne peut être vide !");
-        if(strlen($nameClean)<6)
+        if(strlen($nameClean)<2)
             throw new Exception("Le titre est trop court !");
         if(strlen($nameClean)>120)
             throw new Exception("Le titre est trop long !");
@@ -46,21 +46,21 @@ class CategoryMapping extends AbstractMapping{
 
     public function getCategorySlug(): ?string
     {
-        return $this->categoty_slug;
+        return $this->category_slug;
     }
 
-    public function setArticleSlug(?string $article_slug): void
+    public function setCategorySlug(?string $category_slug): void
     {
-        if(is_null($article_slug)) return;
-        $article_slug = trim(htmlspecialchars(strip_tags($article_slug)));
-        if(empty($article_slug))
+        if(is_null($category_slug)) return;
+        $category_slug = trim(htmlspecialchars(strip_tags($category_slug)));
+        if(empty($category_slug))
             throw new Exception("Le slug ne peut être vide !");
-        if(strlen($article_slug)<6)
+        if(strlen($category_slug)<2)
             throw new Exception("Le slug est trop court !");
-        if(strlen($article_slug)>125)
+        if(strlen($category_slug)>125)
             throw new Exception("Le slug est trop long !");
 
-        $this->article_slug = $article_slug;
+        $this->category_slug = $category_slug;
     }
 
     public function getCategoryDesc(): ?string
@@ -68,7 +68,7 @@ class CategoryMapping extends AbstractMapping{
         return $this->category_desc;
     }
 
-    public function setArticleText(?string $category_desc): void
+    public function setCategoryDesc(?string $category_desc): void
     {
         if(is_null($category_desc)) return;
         $category_desc = trim(htmlspecialchars(strip_tags($category_desc)));

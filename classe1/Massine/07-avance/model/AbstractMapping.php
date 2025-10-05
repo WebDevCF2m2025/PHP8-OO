@@ -11,7 +11,6 @@ abstract class AbstractMapping
     {
         // appel de l'hydratation
         $this->hydrate($datas);
-
     }
 
     /* création d'une méthode d'hydratation, c'est-à-dire de

@@ -13,7 +13,7 @@
 <body>
     <h1>Administration</h1>
     <nav>
-        <a href ="./">Accueil</a> | <a href ="./?p=admin">Administration</a> | <a href="?p=create">Création d'un nouvel article</a>
+        <a href ="./">Accueil</a> | <a href ="./?c=admin">Administration Category</a> | <a href="?c=createCateg">Création d'une nouvelle catégorie</a>
     </nav>
     <h2>Articles de notre site</h2>
     <?php

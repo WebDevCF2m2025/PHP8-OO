@@ -6,6 +6,9 @@ use model\ArticleManager;
 // chemin vers le mapping d'Article
 use model\ArticleMapping;
 // ici pour Category
+use model\CategoryManager;
+
+use model\CategoryMapping;
 
 # Connexion PDO
 try {
@@ -24,7 +27,7 @@ try {
 
 // Instanciation du Manager d'ArticleMapping
 $ArticleManager = new ArticleManager($connectPDO);
-
+$CategorieManager = new CategoryManager($connectPDO);
 /*
  * Page d'accueil
  * On souhaite y afficher tous nos articles qui sont visibles
@@ -141,15 +144,32 @@ if(isset($_GET['p'])||isset($_GET['c'])){
         switch ($_GET['c']) {
             // page admin
             case 'admin':
-                echo "Admin category";
+                $ListeCategories = $CategorieManager->readAll();
+                include RACINE_PATH . "/view/category.html.php";
                 break;
             // create category
             case 'createCateg':
+                if (isset($_POST)&&!empty($_POST)) {
+                    $categorie = new CategoryManager($connectPDO);
+                    $NewCategorie = new CategoryMapping($_POST);
 
+                    $slug = $categorie->slugify($NewCategorie->getCategoryName());
+
+                    $NewCategorie->setCategorySlug($slug);
+
+                    $ok = $categorie->create($NewCategorie);
+                    if ($ok === true) {
+                        header("Location: ./?c=admin");
+                        exit;
+                    } else {
+                        $message = $ok;
+                    }
+                }
+                include RACINE_PATH . "/view/catecreate.html.php";
                 break;
             // update category
             case 'updateCateg':
-
+                
                 break;
             // delete article
             case 'deleteCateg':
