@@ -41,15 +41,15 @@ class CategoryManager implements ManagerInterface, CrudInterface
         $prepare->bindValue(1,$id,PDO::PARAM_INT);
         try{
             $prepare->execute();
-            // si pas d'article récupéré
+
             if($prepare->rowCount()!==1)
                 return false;
-            // on a un article
+
             $result = $prepare->fetch(PDO::FETCH_ASSOC);
 
-            $article = new CategoryMapping($result);
+            $category = new CategoryMapping($result);
             $prepare->closeCursor();
-            return $article;
+            return $category;
 
         }catch(Exception $e){
             die($e->getMessage());
@@ -63,6 +63,7 @@ class CategoryManager implements ManagerInterface, CrudInterface
         $query = $this->db->query($sql);
         $stmt = $query->fetchAll(PDO::FETCH_ASSOC);
         foreach ($stmt as $item){
+            
             // réutilisation des setters
             $result[] = new CategoryMapping($item);
         }

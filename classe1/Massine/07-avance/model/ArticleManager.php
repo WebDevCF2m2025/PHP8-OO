@@ -137,6 +137,7 @@ class ArticleManager implements ManagerInterface, CrudInterface
             $sql .= "ORDER BY `article_date` DESC";
         $query = $this->db->query($sql);
         $stmt = $query->fetchAll(PDO::FETCH_ASSOC);
+        $result = [];
         foreach ($stmt as $item){
             // réutilisation des setters
             $result[] = new ArticleMapping($item);

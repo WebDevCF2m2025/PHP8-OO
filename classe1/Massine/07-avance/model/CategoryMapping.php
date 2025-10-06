@@ -74,7 +74,7 @@ class CategoryMapping extends AbstractMapping{
         $category_desc = trim(htmlspecialchars(strip_tags($category_desc)));
         if(empty($category_desc))
             throw new Exception("Le texte ne peut être vide !");
-        if(strlen($category_desc)<20)
+        if(strlen($category_desc)<10)
             throw new Exception("Le texte est trop court !");
 
         $this->category_desc = $category_desc;

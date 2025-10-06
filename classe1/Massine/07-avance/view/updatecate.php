@@ -1,5 +1,5 @@
 <?php
-// view/catecreate.html.php
+// view/updatecate.php
 ?>
 <!doctype html>
 <html lang="fr">
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Créer une Catégorie - Mon Blog</title>
+    <title>Modifier la Catégorie - Mon Blog</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow">
         <div class="container">
             <a class="navbar-brand fw-bold" href="./">
-                <i class="bi bi-plus-square-dotted me-2"></i>Créer une Catégorie
+                <i class="bi bi-pencil-square me-2"></i>Modifier la Catégorie
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -50,9 +50,14 @@
             <div class="row align-items-center">
                 <div class="col-md-8">
                     <h1 class="h2 mb-0">
-                        <i class="bi bi-folder-plus me-2"></i>Créer une Nouvelle Catégorie
+                        <i class="bi bi-folder-fill me-2"></i>Modifier la Catégorie
                     </h1>
-                    <p class="mb-0 opacity-75">Organisez vos articles avec une nouvelle catégorie</p>
+                    <p class="mb-0 opacity-75">Mettez à jour les informations de votre catégorie</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <span class="badge bg-light text-success fs-6">
+                        ID: #<?= $categorie->getId() ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -61,21 +66,17 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <?php if(isset($message)): ?>
-                <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <div><?=$message?></div>
-                </div>
-                <?php endif; ?>
 
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-success text-white">
                         <h4 class="mb-0">
-                            <i class="bi bi-tag-fill me-2"></i>Formulaire de Création
+                            <i class="bi bi-tag-fill me-2"></i>Formulaire de Modification
                         </h4>
                     </div>
                     <div class="card-body p-4">
                         <form action="" method="post" class="needs-validation" novalidate>
+                            <input type="hidden" name="id" value="<?= $categorie->getId() ?>">
+                            
                             <!-- Nom de la catégorie -->
                             <div class="mb-4">
                                 <label for="category_name" class="form-label fw-semibold">
@@ -85,13 +86,10 @@
                                        class="form-control form-control-lg" 
                                        id="category_name" 
                                        name="category_name" 
-                                       placeholder="Ex: Technologie, Voyage, Cuisine..."
+                                       value="<?= html_entity_decode($categorie->getCategoryName()) ?>"
                                        required>
                                 <div class="invalid-feedback">
                                     Veuillez saisir un nom pour votre catégorie.
-                                </div>
-                                <div class="form-text">
-                                    <i class="bi bi-info-circle me-1"></i>Le slug sera généré automatiquement à partir du nom
                                 </div>
                             </div>
 
@@ -103,64 +101,23 @@
                                 <textarea class="form-control" 
                                           id="category_desc" 
                                           name="category_desc" 
-                                          rows="6" 
-                                          placeholder="Décrivez le contenu et le thème de cette catégorie..."
-                                          required></textarea>
+                                          rows="8" 
+                                          required><?= html_entity_decode($categorie->getCategoryDesc()) ?></textarea>
                                 <div class="invalid-feedback">
                                     Veuillez saisir une description pour votre catégorie.
-                                </div>
-                                <div class="form-text">
-                                    <i class="bi bi-lightbulb me-1"></i>Une bonne description aide les visiteurs à comprendre le contenu
                                 </div>
                             </div>
 
                             <!-- Boutons d'action -->
                             <div class="d-flex gap-3 pt-3 border-top">
                                 <button type="submit" class="btn btn-success btn-lg flex-fill">
-                                    <i class="bi bi-check-circle me-2"></i>Créer la Catégorie
+                                    <i class="bi bi-check-circle me-2"></i>Mettre à Jour
                                 </button>
                                 <a href="./?c=admin" class="btn btn-outline-secondary btn-lg">
                                     <i class="bi bi-arrow-left me-2"></i>Retour
                                 </a>
                             </div>
                         </form>
-                    </div>
-                </div>
-
-                <!-- Conseils d'utilisation -->
-                <div class="row mt-4">
-                    <div class="col-md-4">
-                        <div class="card border-0 bg-light h-100">
-                            <div class="card-body text-center">
-                                <i class="bi bi-lightbulb text-warning fs-1 mb-2"></i>
-                                <h6 class="text-muted">Conseil</h6>
-                                <small class="text-muted">
-                                    Choisissez un nom court et descriptif
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card border-0 bg-light h-100">
-                            <div class="card-body text-center">
-                                <i class="bi bi-collection text-success fs-1 mb-2"></i>
-                                <h6 class="text-muted">Organisation</h6>
-                                <small class="text-muted">
-                                    Les catégories aident à structurer votre contenu
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card border-0 bg-light h-100">
-                            <div class="card-body text-center">
-                                <i class="bi bi-search text-info fs-1 mb-2"></i>
-                                <h6 class="text-muted">Navigation</h6>
-                                <small class="text-muted">
-                                    Facilitez la recherche pour vos lecteurs
-                                </small>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

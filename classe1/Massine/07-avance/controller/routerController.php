@@ -169,11 +169,59 @@ if(isset($_GET['p'])||isset($_GET['c'])){
                 break;
             // update category
             case 'updateCateg':
-                
+                    if (!empty($_GET['id']) && ctype_digit($_GET['id'])):
+                    // si on a cliqué sur update
+                    if (isset($_POST['category_name'], $_POST['category_desc'])) {
+
+                        // les setters revérifient les champs
+                        $updateCategory = new CategoryMapping($_POST);
+                        // on régénère le slug depuis lui-même
+                        $slug = $CategorieManager->slugify(html_entity_decode($updateCategory->getCategoryName()));
+
+                        $updateCategory->setCategorySlug($slug);
+
+                        try {
+                            $ok = $CategorieManager->update($_GET['id'], $updateCategory);
+
+                            if (is_string($ok)) {
+                                $message = $ok;
+                                include RACINE_PATH . "/view/404.html.php";
+                                die();
+                            }
+                            header("location: ./?c=admin");
+                        } catch (Exception $e) {
+                            echo $e->getMessage();
+                        }
+
+                    }
+
+                    $categorie = $CategorieManager->readById((int)$_GET['id']);
+
+                    if ($categorie === false) {
+                        $message = "Cet article n'existe plus";
+                        include RACINE_PATH . "/view/404.html.php";
+                    } else {
+                        include RACINE_PATH . "/view/updatecate.php";
+                    }
+                else:
+                    $message = "Touche pas à mon code !";
+                    include RACINE_PATH . "/view/404.html.php";
+                endif;
                 break;
             // delete article
             case 'deleteCateg':
-
+                if (!empty($_GET['id']) && ctype_digit($_GET['id'])):
+                    $ok = $CategorieManager->delete($_GET['id']);
+                    if ($ok) {
+                        header("Location: ./?c=admin");
+                    } else {
+                        $message = "Erreur lors de la suppression !";
+                        include RACINE_PATH . "/view/404.html.php";
+                    }
+                else:
+                    $message = "Touche pas à mon code !";
+                    include RACINE_PATH . "/view/404.html.php";
+                endif;
                 break;
         }
     }
